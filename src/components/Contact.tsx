@@ -39,7 +39,7 @@ export default function Contact() {
 
         <div className="flex justify-center gap-8 mt-16 text-2xl text-[#8892b0]">
           <a
-            href="https://github.com/gamingdaddy8"
+            href="https://github.com/RudreshGawas"
             target="_blank"
             className="hover:text-[#64ffda] transition-colors duration-300"
           >
