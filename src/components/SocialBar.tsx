@@ -16,7 +16,7 @@ export default function SocialBar() {
       </a>
 
       <a
-        href="https://linkedin.com/"
+        href="https://linkedin.com/in/rudresh-gawas"
         target="_blank"
         className="text-[#8892b0] hover:text-[#64ffda] hover:-translate-y-1 transition-all duration-300"
       >
