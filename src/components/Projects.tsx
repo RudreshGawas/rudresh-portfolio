@@ -2,9 +2,39 @@
 
 import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaYoutube } from "react-icons/fa";
 
-const projects = [
+type Project = {
+  title: string;
+  subtitle: string;
+  description: string;
+  tech: string[];
+  images: string[];
+  github?: string;
+  demo?: string;
+  video?: string;
+};
+
+const projects: Project[] = [
+  {
+    title: "Multi-Agent AI Project Manager",
+    subtitle: "AI-Powered Software Project Planning Platform",
+    description:
+      "Turns a project idea into structured requirements, technology recommendations, system architecture, a three-sprint plan, and project documentation. LangGraph orchestrates specialized agents, with optional scope clarification, live progress updates, and downloadable PDF and JSON plans.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "LangGraph",
+      "LangChain",
+      "Google Gemini",
+      "Pydantic",
+      "Next.js",
+      "PostgreSQL",
+    ],
+    images: [],
+    video: "https://youtu.be/Vs7NUV-zlrc",
+  },
+
   {
     title: "PhysioCare",
     subtitle: "AI-Powered Physiotherapy Rehabilitation Platform",
@@ -105,26 +135,52 @@ export default function Projects() {
               }`}
             >
               
-              <div className="grid grid-cols-2 gap-4">
-                {project.images.map((image, imgIndex) => (
+              {project.images.length > 0 ? (
+                <div className="grid grid-cols-2 gap-4">
+                  {project.images.map((image, imgIndex) => (
                     <div
-                    key={imgIndex}
-                    className="relative group overflow-hidden rounded-xl"
+                      key={imgIndex}
+                      className="relative group overflow-hidden rounded-xl"
                     >
-                    <div className="absolute inset-0 bg-[#64ffda]/20 blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 z-0"></div>
+                      <div className="absolute inset-0 bg-[#64ffda]/20 blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 z-0"></div>
 
-                    <img
+                      <img
                         src={image}
                         alt={project.title}
                         className="relative z-10 w-full h-[170px] object-cover rounded-xl border border-white/10 transition-transform duration-500 group-hover:scale-105"
-                    />
+                      />
 
-                    <div className="absolute inset-0 bg-black/10 rounded-xl z-20"></div>
+                      <div className="absolute inset-0 bg-black/10 rounded-xl z-20"></div>
                     </div>
-                ))}
+                  ))}
                 </div>
+              ) : (
+                <div className="min-h-[360px] rounded-xl border border-white/10 bg-[#111111] p-8 flex flex-col justify-center">
+                  <p className="text-[#64ffda] font-mono text-xs tracking-widest mb-6">
+                    LANGGRAPH WORKFLOW
+                  </p>
+                  <div className="space-y-3">
+                    {[
+                      "Project requirements",
+                      "Technology research",
+                      "System architecture",
+                      "Sprint planning",
+                      "Project documentation",
+                    ].map((stage, stageIndex) => (
+                      <div
+                        key={stage}
+                        className="flex items-center gap-4 rounded-lg border border-white/10 bg-black/20 px-4 py-3"
+                      >
+                        <span className="font-mono text-sm text-[#64ffda]">
+                          0{stageIndex + 1}
+                        </span>
+                        <span className="text-sm text-[#ccd6f6]">{stage}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-              
               <div>
                 <p className="text-[#64ffda] font-mono text-sm mb-2">
                   Featured Project
@@ -148,21 +204,47 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="flex gap-5 mt-6">
-                  <a
-                    href={project.github}
-                    className="text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
-                  >
-                    <FaGithub size={22} />
-                  </a>
+                {(project.github && project.github !== "#") ||
+                (project.demo && project.demo !== "#") ||
+                project.video ? (
+                  <div className="flex gap-5 mt-6">
+                    {project.github && project.github !== "#" && (
+                      <a
+                        href={project.github}
+                        aria-label={`${project.title} on GitHub`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
+                      >
+                        <FaGithub size={22} />
+                      </a>
+                    )}
 
-                  <a
-                    href={project.demo}
-                    className="text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
-                  >
-                    <FiExternalLink size={22} />
-                  </a>
-                </div>
+                    {project.demo && project.demo !== "#" && (
+                      <a
+                        href={project.demo}
+                        aria-label={`${project.title} live demo`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
+                      >
+                        <FiExternalLink size={22} />
+                      </a>
+                    )}
+
+                    {project.video && (
+                      <a
+                        href={project.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[#ccd6f6] hover:text-[#64ffda] transition-colors"
+                      >
+                        <FaYoutube size={22} />
+                        <span>Watch demo</span>
+                      </a>
+                    )}
+                  </div>
+                ) : null}
               </div>
             </motion.div>
           ))}
